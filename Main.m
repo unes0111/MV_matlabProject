@@ -1,4 +1,6 @@
 
+
+
 videosDirectory = 'F:\Dars\Term8\MV\Project\UCF15\';
 
 load(strcat(videosDirectory, 'split.mat'));
