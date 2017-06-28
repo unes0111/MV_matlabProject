@@ -1,17 +1,17 @@
-function ExtractFramesOfTrainingVideos(trainingVideosDirectory, categoriesLabels, outputDirectory, train, framesCount)
+function trainingImagesDirectory = ExtractFramesOfTrainingVideos(trainingVideosDirectory, categoriesLabels, outputDirectory, train, framesCount)
 % frame haye video ha ra joda mikonad va bar asase daste bandi dar poshe
 % moshkhas shode gharar midahad
 
-directoryName = 'Frames';
+directoryName = 'Frames/';
 
-directory = strcat(outputDirectory, '/', directoryName);
-if exist(directory, 'dir')
-	rmdir(directory, 's')
+trainingImagesDirectory = strcat(outputDirectory, directoryName);
+if exist(trainingImagesDirectory, 'dir')
+	rmdir(trainingImagesDirectory, 's')
 end
 
-mkdir(directory);
+mkdir(trainingImagesDirectory);
 for i = 1:size(categoriesLabels)
-	mkdir(directory, categoriesLabels{i});
+	mkdir(trainingImagesDirectory, categoriesLabels{i});
 end
 
 fprintf('Extracting frames of training videos   0%%\n');
@@ -32,7 +32,7 @@ for i = 1:trainSize(1)
 		video.CurrentTime = framesDistance * frameDuration * j;
 		frame = readFrame(video);
 		name = strsplit(train{i, 1}, '.');
-		imwrite(frame, strcat(outputDirectory, '/', directoryName, '/', name{1}, '_', num2str(j + 1, '%03d'), '.jpg'));
+		imwrite(frame, strcat(outputDirectory, directoryName, name{1}, '_', num2str(j + 1, '%03d'), '.jpg'));
 	end
 end
 

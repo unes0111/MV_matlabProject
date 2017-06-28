@@ -1,5 +1,8 @@
 
 %initials
+clc;
+clear;
+
 videosDirectory = '../UCF15/';
 outputDirectory = '../Output/';
 
@@ -20,4 +23,15 @@ clear rowNumber;
 clear i;
 clear name;
 
-% ExtractFramesOfTrainingVideos(videosDirectory, categoriesLabels, outputDirectory, trainTestTables.train, 1);
+% trainingImagesDirectory = ExtractFramesOfTrainingVideos(videosDirectory, categoriesLabels, outputDirectory, trainTestTables.train, 1);
+
+trainingImagesDirectory = '../Output/Frames/';
+
+[trainingImgageSets, bagOfFeature, categoryClassifier] = ...
+	Classification(trainingImagesDirectory, categoriesLabels, outputDirectory);
+
+confMatrix = evaluate(categoryClassifier, trainingImgageSets);
+
+% Compute average accuracy
+mean(diag(confMatrix));
+
