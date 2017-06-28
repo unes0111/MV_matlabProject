@@ -1,20 +1,23 @@
 
+%initials
+videosDirectory = '../UCF15/';
+outputDirectory = '../Output/';
 
-
-videosDirectory = 'F:\Dars\Term8\MV\Project\UCF15\';
-
-load(strcat(videosDirectory, 'split.mat'));
-
-labelNames = cell(15, 1);
-for i = 1:15
-	[r, c] = find([labtr] == i);
-	str = train{r(1)};
-	name = strsplit(str, '/');
-	labelNames{i} = name{1};
+if exist(outputDirectory, 'dir') == false
+	mkdir(outputDirectory);
 end
 
-clear r;
-clear c;
-clear str;
+trainTestTables = load(strcat(videosDirectory, 'split.mat'));
+
+categoriesLabels = cell(15, 1);
+for i = 1:15
+	rowNumber = find([trainTestTables.labtr] == i);
+	name = strsplit(trainTestTables.train{rowNumber(1)}, '/');
+	categoriesLabels{i} = name{1};
+end
+
+clear rowNumber;
 clear i;
 clear name;
+
+% ExtractFramesOfTrainingVideos(videosDirectory, categoriesLabels, outputDirectory, trainTestTables.train, 1);
